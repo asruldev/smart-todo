@@ -21,15 +21,16 @@ class AuthService {
 
       const docs = await this.userTable.getAllAndWhere("uid", "==", user.uid);
       const userData = docs?.[0]; // {id: 'Ri1phM22KBJC97nFcYMj', name: 'Asrul Dev', email: 'talkasrul@gmail.com', uid: 'vPXqZ3NNhng0MoEaxZT9Z3AXHbr2', authProvider: 'google'}
-      if (!userData) {
-        this.addUserData({
-          uid: user.uid,
-          name: user.displayName,
-          authProvider: "google",
-          email: user.email,
-        });
-        return true;
+      const data = {
+        uid: user.uid,
+        name: user.displayName,
+        authProvider: "google",
+        email: user.email,
       }
+      if (!userData) {
+        this.addUserData(data);
+      }
+      return data;
     } catch (error) {
       let errorMessage = error.message;
       return errorMessage;
