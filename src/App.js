@@ -1,28 +1,27 @@
 import "./App.css";
 import { Route, Routes, Navigate, Outlet, useLocation } from "react-router-dom";
 import { useAuth } from "./provider/AuthProvider";
+import { Navigation } from "./components/Navigation";
+import { Landing } from "./Pages/Landing";
+import { Dashboard } from "./Pages/Dashboard";
 
-function Landing() {
-  const { onLogin } = useAuth();
-  return <h1>Landing <button onClick={onLogin}>Klik</button></h1>;
-}
 
 function App() {
   const { user, loading } = useAuth();
 
-  console.log(user, "ini", loading)
-
-  if(loading) return <h1>Loading...</h1>
+  if (loading) return <h1>Loading...</h1>;
 
   return (
-    <Routes>
-      <Route index element={<Landing />} />
-      <Route path="landing" element={<Landing />} />
-      <Route element={<ProtectedRoute isAllowed={!!user && !loading} />}>
-        <Route path="home" element={<h1>Home</h1>} />
-        <Route path="dashboard" element={<h1>Dashboard</h1>} />
-      </Route>
-      {/* <Route
+    <>
+      <Navigation />
+      <Routes>
+        <Route index element={<Landing />} />
+        <Route path="landing" element={<Landing />} />
+        <Route element={<ProtectedRoute isAllowed={!!user && !loading} />}>
+          <Route path="me" element={<h1>My Profile</h1>} />
+          <Route path="dashboard" element={<Dashboard />} />
+        </Route>
+        {/* <Route
         path="analytics"
         element={
           <ProtectedRoute
@@ -44,8 +43,9 @@ function App() {
           </ProtectedRoute>
         }
       /> */}
-      <Route path="*" element={<p>There's nothing here: 404!</p>} />
-    </Routes>
+        <Route path="*" element={<p>There's nothing here: 404!</p>} />
+      </Routes>
+    </>
   );
 }
 

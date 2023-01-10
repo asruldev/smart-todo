@@ -22,8 +22,16 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {}
   };
 
-  const handleLogout = () => {
-    setUser(null);
+  const handleLogout = async () => {
+    try {
+        await AuthService.logout()
+        navigate("/")
+    } catch (error) {
+        
+    } finally {
+        window.localStorage.clear()
+        setUser(null);
+    }
   };
 
   useEffect(() => {
