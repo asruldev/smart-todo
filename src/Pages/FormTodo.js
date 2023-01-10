@@ -45,7 +45,7 @@ export function FormTodo({refresh}) {
 
   return (
     <>
-      <Button onClick={onOpen}>Open Modal</Button>
+      <Button onClick={onOpen}>Create Todo</Button>
 
       <Modal initialFocusRef={initialRef} isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />

@@ -84,7 +84,35 @@ export function Dashboard() {
               <Tr key={index}>
                 <Td>{index + 1}</Td>
                 <Td>{item?.title}</Td>
-                <Td><Button onClick={() => changePriority(item?.id, item, Number(item?.priority) -1)}>Down</Button>{item?.priority} <Button onClick={() => changePriority(item?.id, item, Number(item?.priority) + 1)}>Up</Button></Td>
+                <Td>
+                  {!item?.status && (
+                    <Button
+                      onClick={() =>
+                        changePriority(
+                          item?.id,
+                          item,
+                          Number(item?.priority) - 1
+                        )
+                      }
+                    >
+                      Down
+                    </Button>
+                  )}{" "}
+                  {item?.priority}{" "}
+                  {!item?.status && (
+                    <Button
+                      onClick={() =>
+                        changePriority(
+                          item?.id,
+                          item,
+                          Number(item?.priority) + 1
+                        )
+                      }
+                    >
+                      Up
+                    </Button>
+                  )}
+                </Td>
                 <Td>{item?.createdAt}</Td>
                 <Td>{item?.due_date}</Td>
                 <Td>{item?.status ? "Done" : "Todo"}</Td>
@@ -95,12 +123,10 @@ export function Dashboard() {
                     </Button>
                   ) : (
                     <>
-                    <Button onClick={() => markTodo(true, item?.id, item)}>
-                      Mark as done
-                    </Button>
-                    <Button onClick={() => remove(item?.id)}>
-                      Remove
-                    </Button>
+                      <Button onClick={() => markTodo(true, item?.id, item)}>
+                        Mark as done
+                      </Button>
+                      <Button onClick={() => remove(item?.id)}>Remove</Button>
                     </>
                   )}
                 </Td>
